@@ -12,7 +12,7 @@ from django.utils.timezone import now
 
 class CarMake(models.Model):
    name = models.CharField(max_length=100)
-   description = models.TextField()
+   description = models.TextField(max_length=1000)
 
    def __str__(self):
     return  ("Name: " + self.name + "\n"
@@ -34,10 +34,11 @@ class CarModel(models.Model):
         ("Wagon", "Wagon"),
         ("Convertible", "Convertible"),
         ("Pickup Truck", "Pickup Truck"),
+        ("Sports Car", "Sports Car"),
     ]
 
     make = models.ForeignKey(CarMake, on_delete=models.CASCADE)
-    dealer_id = models.IntegerField(primary_key=True)
+    dealer_id = models.IntegerField()
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=25, choices=TYPES, default="Sedan")
     year = models.DateField()
