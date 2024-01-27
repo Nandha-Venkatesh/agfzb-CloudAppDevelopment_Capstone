@@ -45,7 +45,40 @@
                 </ul>
             </div>
         </nav>
+
     <!--Add a dealer table here -->
+        <div class='container-fluid'>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-warning" role="alert">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Dealer ID</th>
+                        <th>Dealer Name</th>
+                        <th>Address</th>
+                        <th>City</th>
+                        <th>Zip Code</th>
+                        <th>State</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dealer in dealership_list %}
+                        <tr>
+                            <td>{dealer.id}</td>
+                            <td>{dealer.full_name}</td>
+                            <td>{dealer.address}</td>
+                            <td>{dealer.city}</td>
+                            <td>{dealer.zip}</td>
+                            <td>{dealer.st}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        <div/>    
 
     </body>
 
