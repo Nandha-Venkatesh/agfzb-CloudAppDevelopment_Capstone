@@ -27,6 +27,9 @@ urlpatterns = [
     # path for the default page (index.html)
     path(route='', view=views.get_dealerships, name='index'),
 
+    # path for get dealer details view
+    path('dealer/<int:dealer_id>/', views.get_dealer_details, name='dealer_details'),
+
     # path for dealer reviews view
 
     # path for add a review view
