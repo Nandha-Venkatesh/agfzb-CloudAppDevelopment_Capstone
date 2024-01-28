@@ -1,91 +1,94 @@
-import requests
-import json
-from .models import CarDealer, DealerReview
-from requests.auth import HTTPBasicAuth
+from django.db import models
+from django.utils.timezone import now
 
 
-# Create a `get_request` to make HTTP GET requests
-# e.g., response = requests.get(url, params=params, headers={'Content-Type': 'application/json'},
-#                                     auth=HTTPBasicAuth('apikey', api_key))
-def get_request(url, **kwargs):
-    print(kwargs)
-    print("GET from {} ".format(url))
-    try:
-        # Call get method of requests library with URL and parameters
-        response = requests.get(url, headers={'Content-Type': 'application/json'},
-                                    params=kwargs)
-    except:
-        # If any error occurs
-        print("Network exception occurred")
-    status_code = response.status_code
-    print("With status {} ".format(status_code))
-    json_data = json.loads(response.text)
-    return json_data
+# Create your models here.
 
-# Create a `post_request` to make HTTP POST requests
-# e.g., response = requests.post(url, params=kwargs, json=payload)
+# <HINT> Create a Car Make model `class CarMake(models.Model)`:
+# - Name
+# - Description
+# - Any other fields you would like to include in car make model
+# - __str__ method to print a car make object
 
+class CarMake(models.Model):
+   name = models.CharField(max_length=100)
+   description = models.TextField(max_length=1000)
 
-# Create a get_dealers_from_cf method to get dealers from a cloud function
-# def get_dealers_from_cf(url, **kwargs):
-# - Call get_request() with specified arguments
-# - Parse JSON results into a CarDealer object list
-def get_dealers_from_cf(url, **kwargs):
-    results = []
-    # Call get_request with a URL parameter
-    json_result = get_request(url)
-    if json_result:
-        for dealer in json_result:
-            # Get its content in `doc` object
-            # Create a CarDealer object with values in `doc` object
-            dealer_obj = CarDealer(address=dealer["address"], city=dealer["city"], full_name=dealer["full_name"], id=dealer["id"], lat=dealer["lat"], 
-                                    long=dealer["long"], short_name=dealer["short_name"], st=dealer["st"], zip=dealer["zip"])
-            results.append(dealer_obj)
-    return results
+   def __str__(self):
+    return  ("Name: " + self.name + "\n"
+            + "Description: " + self.description + "\n")
 
-# Create a get_dealer_reviews_from_cf method to get reviews by dealer id from a cloud function
-# - Call get_request() with specified arguments
-# - Parse JSON results into a DealerView object list
-def get_dealer_by_id_from_cf(url, dealerId):
-    json_result = get_request(url, id=dealerId)
-    if json_result:
-        dealer = json_result[0]
-        dealer_obj = CarDealer(address=dealer["address"], city=dealer["city"], id=dealer["id"], full_name=dealer["full_name"],
-                                lat=dealer["lat"], long=dealer["long"], st=dealer["st"], zip=dealer["zip"], short_name=dealer["short_name"])
-    return dealer_obj
+# <HINT> Create a Car Model model `class CarModel(models.Model):`:
+# - Many-To-One relationship to Car Make model (One Car Make has many Car Models, using ForeignKey field)
+# - Name
+# - Dealer id, used to refer a dealer created in cloudant database
+# - Type (CharField with a choices argument to provide limited choices such as Sedan, SUV, WAGON, etc.)
+# - Year (DateField)
+# - Any other fields you would like to include in car model
+# - __str__ method to print a car make object
 
-# Create a get_dealer_reviews_from_cf method to get reviews by dealer id from a cloud function
-def get_dealer_reviews_from_cf(url, **kwargs):
-    results = []
-    id = kwargs.get("id")
-    if id:
-        json_result = get_request(url, id=id)
-    else:
-        json_result = get_request(url)
+class CarModel(models.Model):
+    TYPES = [
+        ("Sedan", "Sedan"),
+        ("SUV", "SUV"),
+        ("Wagon", "Wagon"),
+        ("Convertible", "Convertible"),
+        ("Pickup Truck", "Pickup Truck"),
+        ("Sports Car", "Sports Car"),
+    ]
+
+    make = models.ForeignKey(CarMake, on_delete=models.CASCADE)
+    dealer_id = models.IntegerField()
+    name = models.CharField(max_length=100)
+    type = models.CharField(max_length=25, choices=TYPES, default="Sedan")
+    year = models.DateField()
+
+    def __str__(self):
+        return  ("Make: " + self.make + "\n" + 
+                "Name: " + self.name + "\n" + 
+                "Dealer ID: " + self.dealer_id + "\n" + 
+                "Type: " + self.type + "\n" + 
+                "Year: " + self.year + "\n")
+
+# <HINT> Create a plain Python class `CarDealer` to hold dealer data
+class CarDealer:
+
+    def __init__(self, address, city, full_name, id, lat, long, short_name, st, zip):
+        # Dealer address
+        self.address = address
+        # Dealer city
+        self.city = city
+        # Dealer Full Name
+        self.full_name = full_name
+        # Dealer id
+        self.id = id
+        # Location lat
+        self.lat = lat
+        # Location long
+        self.long = long
+        # Dealer short name
+        self.short_name = short_name
+        # Dealer state
+        self.st = st
+        # Dealer zip
+        self.zip = zip
+
+    def __str__(self):
+        return "Dealer name: " + self.full_name
+
+# <HINT> Create a plain Python class `DealerReview` to hold review data
+class DealerReview(): 
+    def __init__(self, dealership, name, purchase, review): 
+        self.dealership = dealership 
+        self.name = name 
+        self.purchase = purchase 
+        self.review = review
+
+        # The following fields are not always present 
+        self.purchase_date = ""
+        self.car_make = "" 
+        self.car_model = "" 
+        self.car_year = "" 
+        self.sentiment = "" 
+        self.id = ""
     
-    if json_result:
-        reviews = json_result
-        for dealer_review in reviews:
-            review_obj = DealerReview(dealership=dealer_review["dealership"],
-                                   name=dealer_review["name"],
-                                   purchase=dealer_review["purchase"],
-                                   review=dealer_review["review"])
-            if "id" in dealer_review:
-                review_obj.id = dealer_review["id"]
-            if "purchase_date" in dealer_review:
-                review_obj.purchase_date = dealer_review["purchase_date"]
-            if "car_make" in dealer_review:
-                review_obj.car_make = dealer_review["car_make"]
-            if "car_model" in dealer_review:
-                review_obj.car_model = dealer_review["car_model"]
-            if "car_year" in dealer_review:
-                review_obj.car_year = dealer_review["car_year"]
-            
-            results.append(review_obj)
-
-    return results
-
-# Create an `analyze_review_sentiments` method to call Watson NLU and analyze text
-# def analyze_review_sentiments(text):
-# - Call get_request() with specified arguments
-# - Get the returned sentiment label such as Positive or Negative
