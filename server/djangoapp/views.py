@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import CarDealer, CarMake, CarModel
-from .restapis import get_request, get_dealers_from_cf, get_dealer_by_id_from_cf
+from .restapis import get_request, get_dealers_from_cf, get_dealer_by_id_from_cf, get_dealer_reviews_from_cf
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from datetime import datetime
@@ -103,10 +103,10 @@ def get_dealer_details(request, dealer_id):
         dealer = get_dealer_by_id_from_cf(dealer_url, dealerId=dealer_id)
         context["dealer"] = dealer
     
-        """review_url = ""
+        review_url = "https://nvvnand-5000.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/get_reviews"
         reviews = get_dealer_reviews_from_cf(review_url, id=dealer_id)
         print(reviews)
-        context["reviews"] = reviews"""
+        context["reviews"] = reviews
         
         return render(request, 'djangoapp/dealer_details.html', context)
 
