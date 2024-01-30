@@ -1,3 +1,35 @@
+# HOW TO RUN!!! (Written by Nandhakumar Venkatesh)
+
+# You will need 3 separate terminals!
+
+# TERMINAL 1:
+    1. CD into the agfzb-CloudAppDevelopment_Capstone/functions directory.
+
+    2. Run the following commands:
+        a) npm init -y
+        b) npm install -s @cloudant/cloudant
+        c) npm install express
+        d) node get-dealership.js
+
+# TERMINAL 2:
+    1. CD into the agfzb-CloudAppDevelopment_Capstone/functions directory.
+
+    2. Run the following commands:
+        a) bash setup.sh
+        b) python3.9 reviews.py
+
+# TERMINAL 3:
+    1. CD into the agfzb-CloudAppDevelopment_Capstone/server directory.
+    
+    2. Run the following commands:
+        a) python3 -m pip install -U -r requirements.txt
+        b) python3 manage.py makemigrations djangoapp
+        c) python3 manage.py migrate
+        d) python3 manage.py runserver
+
+# Finally, open a link to port 8000 on localhost to see the app!
+# NOTE: This project will only work as long as my free IBM trial lasts 😔
+
 # Final Project Template
 
 The final project for this course has several steps that you must complete. 
