@@ -1,5 +1,4 @@
 # How to run: (Written by Nandhakumar Venkatesh)
-
 # You will need 3 separate terminals
 
 # TERMINAL 1:
@@ -28,6 +27,7 @@
         d) python3 manage.py runserver
 
 Finally, open a link to port 8000 on localhost to see the app!
+
 NOTE: This project will only work as long as my free IBM trial lasts 😔
 
 # Final Project Template
