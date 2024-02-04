@@ -44,7 +44,7 @@
         d) python manage.py runserver
         (Note: If using the python commands don't work, try writing python3 instead of python).
 
-Finally, open a link to http://localhost:8000/djangoapp/ on localhost to see the app! Replace "djangoapp" with "admin" to view the Django Admin Site!
+Finally, open a link to http://localhost:8000/djangoapp/ on localhost to see the app! Replace "djangoapp" with "admin" to view the Django Admin Site! If something isn't working, refresh the page. Unfortunately, the connection to the IBM databases can be spotty. Look at the outputs in your terminals and check all the URLs listed above. If one of the URLs isn't displaying data, there is a connection issue.
 
 # TO CLOSE THE APP:
     1. Press control+c in each of the three terminals you opened to close the server connections.
