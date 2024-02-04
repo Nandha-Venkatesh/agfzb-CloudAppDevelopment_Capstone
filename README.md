@@ -17,6 +17,8 @@
         c) npm install express
         d) node get-dealership.js
 
+        (Note: If you run into an error, delete package.json, package-lock.json, and the node-modules folder in the functions directory. Then, rerun the commands.)
+
     3. Check the URL http://localhost:3000/dealerships/get. If you see a list of car dealerships, the server is running properly.
 
 # TERMINAL 2:
@@ -30,7 +32,8 @@
         a) pip install Cloudant
         b) pip install Flask
         c) python reviews.py 
-        (Note: You might have to install Python3.9 and write python3.9 instead of Python for the final command).
+
+        (Note: You might have to install Python3.9 and write python3.9 instead of Python for the final command. It's also possible that you get an error telling you that the connection failed. Unfortunately, the connection to the IBM database can be spotty, resulting in this error. In that case, run the "python reviews.py" command until you get a message saying tha the server is running.)
 
     3. Check the URL http://localhost:5000/api/get_reviews?id=15. If you see a list of reviews, the server is running properly.
 
@@ -42,7 +45,8 @@
         b) python manage.py makemigrations djangoapp
         c) python manage.py migrate
         d) python manage.py runserver
-        (Note: If using the python commands don't work, try writing python3 instead of python).
+        
+        (Note: If using the python commands don't work, try writing python3 instead of python.)
 
 Finally, open a link to http://localhost:8000/djangoapp/ on localhost to see the app! Replace "djangoapp" with "admin" to view the Django Admin Site! If something isn't working, refresh the page. Unfortunately, the connection to the IBM databases can be spotty. Look at the outputs in your terminals and check all the URLs listed above. If one of the URLs isn't displaying data, there is a connection issue.
 
