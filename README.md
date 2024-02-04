@@ -1,6 +1,6 @@
 # How to run: (Written by Nandhakumar Venkatesh)
 
-# PRE-REQUISITES:
+# Pre-requisites:
 
     1. Make sure that nodejs and node package manager are installed on your system. NPM usually comes with installations of Node.js.
 
@@ -53,10 +53,11 @@ Finally, open a link to http://localhost:8000/djangoapp/ on localhost to see the
 # TO CLOSE THE APP:
     1. Press control+c in each of the three terminals you opened to close the server connections.
 
-NOTE: This project will only work as long as my free IBM trial lasts 😔
+# Important Note: 
+    This project will only work as long as my free IBM trial lasts 😔
 
 
-# EVERYTHING BELOW THIS WAS WRITTEN BY THE IBM STAFF THAT RUN THE FULL STACK WEB DEVELOPMENT CERTIFICATION PROGRAM ON COURSERA:
+++++++++++++++++++++ EVERYTHING BELOW THIS WAS WRITTEN BY THE IBM STAFF THAT RUN THE FULL STACK WEB DEVELOPMENT CERTIFICATION PROGRAM ON COURSERA ++++++++++++++++++++
 
 
 # Final Project Template
