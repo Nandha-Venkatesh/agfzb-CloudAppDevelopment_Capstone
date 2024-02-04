@@ -51,12 +51,14 @@
             {% for review in reviews %}
             <div class="col-auto mb-3">
                 <div class="card">
-                    {% if review.sentiment == "positive" %}
-                        <img class="card-img-left" width="40px" height="40px" src="{{MEDIA_URL}}/emoji/positive.png"/>
-                    {% elif review.sentiment == "neutral" %}
-                        <img class="card-img-left" width="40px" height="40px" src="{{MEDIA_URL}}/emoji/neutral.png"/>
-                    {% else %}
-                        <img class="card-img-left" width="40px" height="40px" src="{{MEDIA_URL}}/emoji/negative.png"/>
+                    {% if review.sentiment %}
+                        {% if review.sentiment == "positive" %}
+                            <img class="card-img-left" width="40px" height="40px" src="{{MEDIA_URL}}/emoji/positive.png"/>
+                        {% elif review.sentiment == "neutral" %}
+                            <img class="card-img-left" width="40px" height="40px" src="{{MEDIA_URL}}/emoji/neutral.png"/>
+                        {% else %}
+                            <img class="card-img-left" width="40px" height="40px" src="{{MEDIA_URL}}/emoji/negative.png"/>
+                        {% endif %}
                     {% endif %}
                     <div class="card-body bg-light">
                         {% if review.car_make %}

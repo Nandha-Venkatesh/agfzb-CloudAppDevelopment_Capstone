@@ -1,5 +1,12 @@
 # How to run: (Written by Nandhakumar Venkatesh)
-# You will need 3 separate terminals
+
+# PRE-REQUISITES:
+
+    1. Make sure that nodejs and node package manager are installed on your system. NPM usually comes with installations of Node.js.
+
+    2. Make sure that Python3 and PIP are installed on your system. Pip usually comes with installations of Python.
+
+# You will need to open 3 terminals.
 
 # TERMINAL 1:
     1. CD into the agfzb-CloudAppDevelopment_Capstone/functions directory.
@@ -10,25 +17,43 @@
         c) npm install express
         d) node get-dealership.js
 
+    3. Check the URL http://localhost:3000/dealerships/get. If you see a list of car dealerships, the server is running properly.
+
 # TERMINAL 2:
     1. CD into the agfzb-CloudAppDevelopment_Capstone/functions directory.
 
-    2. Run the following commands:
+    2A) If you are on Linux, run the following commands:
         a) bash setup.sh
         b) python3.9 reviews.py
+
+    2B) If you are not on Linux, run the following commands:
+        a) pip install Cloudant
+        b) pip install Flask
+        c) python reviews.py 
+        (Note: You might have to install Python3.9 and write python3.9 instead of Python for the final command).
+
+    3. Check the URL http://localhost:5000/api/get_reviews?id=15. If you see a list of reviews, the server is running properly.
 
 # TERMINAL 3:
     1. CD into the agfzb-CloudAppDevelopment_Capstone/server directory.
     
     2. Run the following commands:
-        a) python3 -m pip install -U -r requirements.txt
-        b) python3 manage.py makemigrations djangoapp
-        c) python3 manage.py migrate
-        d) python3 manage.py runserver
+        a) python -m pip install -U -r requirements.txt
+        b) python manage.py makemigrations djangoapp
+        c) python manage.py migrate
+        d) python manage.py runserver
+        (Note: If using the python commands don't work, try writing python3 instead of python).
 
-Finally, open a link to port 8000 on localhost to see the app!
+Finally, open a link to http://localhost:8000/djangoapp/ on localhost to see the app! Replace "djangoapp" with "admin" to view the Django Admin Site!
+
+# TO CLOSE THE APP:
+    1. Press control+c in each of the three terminals you opened to close the server connections.
 
 NOTE: This project will only work as long as my free IBM trial lasts 😔
+
+
+# EVERYTHING BELOW THIS WAS WRITTEN BY THE IBM STAFF THAT RUN THE FULL STACK WEB DEVELOPMENT CERTIFICATION PROGRAM ON COURSERA:
+
 
 # Final Project Template
 
